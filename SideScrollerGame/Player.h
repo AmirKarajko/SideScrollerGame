@@ -10,7 +10,7 @@ class Player {
 public:
 	vector3df position;
 	float speed = 20.0f;
-	float jumpSpeed = 200.0f;
+	float jumpSpeed = 50.0f;
 
 	Player() {
 		position = vector3df(0, 0, 0);
