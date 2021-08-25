@@ -19,8 +19,8 @@ int main() {
     MyEventReceiver receiver;
 
     IrrlichtDevice* device =
-        createDevice(video::EDT_OPENGL, dimension2d<u32>(800, 600), 16,
-            false, false, false, &receiver);
+        createDevice(EDT_OPENGL, dimension2d<u32>(800, 600), 16,
+            false, true, false, &receiver);
 
     if (!device)
         return 1;
@@ -53,8 +53,14 @@ int main() {
         playerNode->setMaterialFlag(EMF_LIGHTING, false);
         playerNode->setPosition(player.position);
     }
+    // Player Shadow
+    playerNode->addShadowVolumeSceneNode();
     // Player Collision
     ISceneNodeAnimatorCollisionResponse* playerCollision;
+
+    // Light
+    ILightSceneNode* light = smgr->addLightSceneNode(0, vector3df(0, 10, 0));
+    light->setLightType(E_LIGHT_TYPE::ELT_DIRECTIONAL);
 
     // Map
     IMesh* mapMesh = smgr->getMesh("assets/map/map.obj");
