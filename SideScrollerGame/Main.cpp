@@ -19,7 +19,7 @@ int main() {
     MyEventReceiver receiver;
 
     IrrlichtDevice* device =
-        createDevice(video::EDT_SOFTWARE, dimension2d<u32>(800, 600), 16,
+        createDevice(video::EDT_OPENGL, dimension2d<u32>(800, 600), 16,
             false, false, false, &receiver);
 
     if (!device)
@@ -36,11 +36,11 @@ int main() {
 
     // Camera
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0, vector3df(0, 20, 20), vector3df(0, 0, 0));
-    camera->setFarValue(1000.0f);
     camera->setNearValue(1.0f);
+    camera->setFarValue(1000.0f);
 
     // Player
-    Player player = Player(vector3df(0, 10, 0));
+    Player player = Player(vector3df(0, 10, 0.5f));
 
     // Player Mesh
     IMesh* playerMesh = smgr->getMesh("assets/player/player.obj");
@@ -69,7 +69,7 @@ int main() {
 
     // Add Collision
     ITriangleSelector* world = smgr->createOctreeTriangleSelector(mapNode->getMesh(), mapNode);
-    playerCollision = smgr->createCollisionResponseAnimator(world, playerNode, vector3df(1, 2, 1), vector3df(0, -2.0f, 0));
+    playerCollision = smgr->createCollisionResponseAnimator(world, playerNode, vector3df(0.5f, 2, 0.5f), vector3df(0, -0.1f, 0));
     playerNode->addAnimator(playerCollision);
     playerCollision->drop();
 
