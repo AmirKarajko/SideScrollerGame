@@ -43,20 +43,23 @@ int main() {
     Player player = Player(vector3df(0, 10, 0.5f));
 
     // Player Mesh
-    IMesh* playerMesh = smgr->getMesh("assets/player/player.obj");
+    IAnimatedMesh* playerMesh = smgr->getMesh("assets/player/player.md2");
     if (!playerMesh) {
         device->drop();
         return 1;
     }
-    IMeshSceneNode* playerNode = smgr->addMeshSceneNode(playerMesh);
+    IAnimatedMeshSceneNode* playerNode = smgr->addAnimatedMeshSceneNode(playerMesh);
     if (playerNode) {
         playerNode->setMaterialFlag(EMF_LIGHTING, false);
+        playerNode->setMaterialTexture(0, driver->getTexture("assets/player/player.bmp"));
         playerNode->setPosition(player.position);
     }
     // Player Shadow
     playerNode->addShadowVolumeSceneNode();
     // Player Collision
     ISceneNodeAnimatorCollisionResponse* playerCollision;
+    // Player Animation Loop
+    // playerNode->setFrameLoop(0, 0);
 
     // Light
     ILightSceneNode* light = smgr->addLightSceneNode(0, vector3df(0, 10, 0));
