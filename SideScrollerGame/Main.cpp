@@ -1,5 +1,7 @@
 #include <irrlicht.h>
 
+#include "MyEventReceiver.h"
+
 using namespace irr;
 using namespace core;
 using namespace scene;
@@ -13,9 +15,11 @@ using namespace gui;
 #endif
 
 int main() {
+    MyEventReceiver receiver;
+
     IrrlichtDevice* device =
         createDevice(video::EDT_SOFTWARE, dimension2d<u32>(800, 600), 16,
-            false, false, false, 0);
+            false, false, false, &receiver);
 
     if (!device)
         return 1;
@@ -29,7 +33,8 @@ int main() {
     guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!",
         rect<s32>(10, 10, 260, 22), true);
 
-    smgr->addCameraSceneNode(0, vector3df(0, 20, 20), vector3df(0, 5, 0));
+    ICameraSceneNode* camera = smgr->addCameraSceneNode(0, vector3df(0, 20, 20), vector3df(0, 0, 0));
+    vector3df cameraPosition = camera->getPosition();
 
     // Map
     IMesh* mapMesh = smgr->getMesh("assets/map/map.obj");
@@ -47,6 +52,16 @@ int main() {
 
         smgr->drawAll();
         guienv->drawAll();
+
+        if (receiver.isKeyDown(KEY_KEY_D)) {
+            cameraPosition.X -= 1;
+        }
+        if (receiver.isKeyDown(KEY_KEY_A)) {
+            cameraPosition.X += 1;
+        }
+
+        camera->setPosition(cameraPosition);
+        camera->setTarget(vector3df(cameraPosition.X, cameraPosition.Y - 5, cameraPosition.Z - 5));
 
         driver->endScene();
     }
