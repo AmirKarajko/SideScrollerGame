@@ -1,6 +1,7 @@
 #include <irrlicht.h>
 
 #include "MyEventReceiver.h"
+#include "Player.h"
 
 using namespace irr;
 using namespace core;
@@ -34,7 +35,23 @@ int main() {
         rect<s32>(10, 10, 260, 22), true);
 
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0, vector3df(0, 20, 20), vector3df(0, 0, 0));
-    vector3df cameraPosition = camera->getPosition();
+    camera->setFarValue(1000);
+    camera->setNearValue(0.01f);
+
+    // Player
+    Player player = Player(vector3df(0, 10, 0));
+
+    // Player Mesh
+    IMesh* playerMesh = smgr->getMesh("assets/player/player.obj");
+    if (!playerMesh) {
+        device->drop();
+        return 1;
+    }
+    IMeshSceneNode* playerNode = smgr->addMeshSceneNode(playerMesh);
+    if (playerNode) {
+        playerNode->setMaterialFlag(EMF_LIGHTING, false);
+        playerNode->setPosition(player.position);
+    }
 
     // Map
     IMesh* mapMesh = smgr->getMesh("assets/map/map.obj");
@@ -54,14 +71,16 @@ int main() {
         guienv->drawAll();
 
         if (receiver.isKeyDown(KEY_KEY_D)) {
-            cameraPosition.X -= 1;
+            player.position.X -= 1;
         }
         if (receiver.isKeyDown(KEY_KEY_A)) {
-            cameraPosition.X += 1;
+            player.position.X += 1;
         }
 
-        camera->setPosition(cameraPosition);
-        camera->setTarget(vector3df(cameraPosition.X, cameraPosition.Y - 5, cameraPosition.Z - 5));
+        playerNode->setPosition(vector3df(player.position));
+
+        camera->setPosition(vector3df(player.position.X, player.position.Y + 20, player.position.Z + 20));
+        camera->setTarget(vector3df(player.position.X, player.position.Y - 5, player.position.Z - 5));
 
         driver->endScene();
     }
