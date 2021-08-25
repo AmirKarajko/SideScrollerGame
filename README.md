@@ -18,6 +18,12 @@ Download link: irrlicht.sourceforge.io
 
 Copy io_mesh_md2_28_pythno.py to desktop and install it with Blender.
 
-Download Link: https://github.com/michaeleggers/Quake2modding
+### Blender
+
+Download link: https://www.blender.org/
+
+### MD2 addon
+
+Download link: https://github.com/michaeleggers/Quake2modding
 
 # Copyright © 2021
