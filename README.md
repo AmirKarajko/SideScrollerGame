@@ -1,16 +1,16 @@
 # Side Scroller Game
 
-3D Side Scroller Game Created in C++ Irrlicht Engine.
+3D Side Scroller Game created in Visual Studio 2022 Preview, C++ Irrlicht Engine.
 
 ## How to play
 
-W - MOVE RIGHT
-A - MOVE LEFT
-SPACE - JUMP
+* W - MOVE RIGHT
+* A - MOVE LEFT
+* SPACE - JUMP
 
 # Setup
 
-Copy irrlicht.dll, export blender models in debug/assets folder and run SideScrollerGame.exe
+Copy irrlicht.dll and export blender models in debug/assets folder to build SideScrollerGame.exe.
 
 Download link: irrlicht.sourceforge.io
 
