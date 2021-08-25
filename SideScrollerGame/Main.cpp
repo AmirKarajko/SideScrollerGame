@@ -34,9 +34,10 @@ int main() {
     guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!",
         rect<s32>(10, 10, 260, 22), true);
 
+    // Camera
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0, vector3df(0, 20, 20), vector3df(0, 0, 0));
-    camera->setFarValue(1000);
-    camera->setNearValue(0.01f);
+    camera->setFarValue(1000.0f);
+    camera->setNearValue(1.0f);
 
     // Player
     Player player = Player(vector3df(0, 10, 0));
@@ -52,6 +53,8 @@ int main() {
         playerNode->setMaterialFlag(EMF_LIGHTING, false);
         playerNode->setPosition(player.position);
     }
+    // Player Collision
+    ISceneNodeAnimatorCollisionResponse* playerCollision;
 
     // Map
     IMesh* mapMesh = smgr->getMesh("assets/map/map.obj");
@@ -64,23 +67,37 @@ int main() {
         mapNode->setMaterialFlag(EMF_LIGHTING, false);
     }
 
+    // Add Collision
+    ITriangleSelector* world = smgr->createOctreeTriangleSelector(mapNode->getMesh(), mapNode);
+    playerCollision = smgr->createCollisionResponseAnimator(world, playerNode, vector3df(1, 2, 1), vector3df(0, -2.0f, 0));
+    playerNode->addAnimator(playerCollision);
+    playerCollision->drop();
+
+    // Time
+    u32 then = device->getTimer()->getTime();
+
     while (device->run()) {
+        const u32 now = device->getTimer()->getTime();
+        const f32 frameDeltaTime = (f32)(now - then) / 1000.0f;
+        then = now;
+
         driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
         smgr->drawAll();
         guienv->drawAll();
 
         if (receiver.isKeyDown(KEY_KEY_D)) {
-            player.position.X -= 1;
+            playerNode->setPosition(vector3df(playerNode->getPosition().X - (player.speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
         }
         if (receiver.isKeyDown(KEY_KEY_A)) {
-            player.position.X += 1;
+            playerNode->setPosition(vector3df(playerNode->getPosition().X + (player.speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
+        }
+        if (receiver.isKeyDown(KEY_SPACE)) {
+            playerNode->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (player.jumpSpeed * frameDeltaTime), playerNode->getPosition().Z));
         }
 
-        playerNode->setPosition(vector3df(player.position));
-
-        camera->setPosition(vector3df(player.position.X, player.position.Y + 20, player.position.Z + 20));
-        camera->setTarget(vector3df(player.position.X, player.position.Y - 5, player.position.Z - 5));
+        camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 20, playerNode->getPosition().Z + 20));
+        camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - 5, playerNode->getPosition().Z - 5));
 
         driver->endScene();
     }
