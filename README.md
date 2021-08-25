@@ -14,7 +14,7 @@ Copy irrlicht.dll and export Blender models in debug/assets folder to build Side
 
 Download link: irrlicht.sourceforge.io
 
-## Blender exporting MD2
+## Blender Exporting MD2 Format
 
 Copy io_mesh_md2_28_pythno.py to desktop and install it with Blender.
 
