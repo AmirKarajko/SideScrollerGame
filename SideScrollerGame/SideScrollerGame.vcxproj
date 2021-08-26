@@ -109,8 +109,13 @@ copy /y "$(SolutionDir)Blender\player\player.bmp" "$(OutDir)\assets\player\playe
 mkdir "$(OutDir)\assets\map"
 copy /y "$(SolutionDir)Blender\map\map.obj" "$(OutDir)\assets\map\map.obj"
 copy /y "$(SolutionDir)Blender\map\map.mtl" "$(OutDir)\assets\map\map.mtl"
-copy /y "$(SolutionDir)Blender\map\grass.png" "$(OutDir)\assets\map\grass.png"
-copy /y "$(SolutionDir)Blender\map\ground.png" "$(OutDir)\assets\map\ground.png"</Command>
+copy /y "$(SolutionDir)Blender\map\bricks.jpg" "$(OutDir)\assets\map\bricks.jpg"
+copy /y "$(SolutionDir)Blender\map\grass.jpg" "$(OutDir)\assets\map\grass.jpg"
+copy /y "$(SolutionDir)Blender\map\ground.jpg" "$(OutDir)\assets\map\ground.jpg"
+copy /y "$(SolutionDir)Blender\map\ocean.jpg" "$(OutDir)\assets\map\ocean.jpg"
+copy /y "$(SolutionDir)Blender\map\sand.jpg" "$(OutDir)\assets\map\sand.jpg"
+copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
+copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,8 +141,13 @@ copy /y "$(SolutionDir)Blender\player\player.bmp" "$(OutDir)\assets\player\playe
 mkdir "$(OutDir)\assets\map"
 copy /y "$(SolutionDir)Blender\map\map.obj" "$(OutDir)\assets\map\map.obj"
 copy /y "$(SolutionDir)Blender\map\map.mtl" "$(OutDir)\assets\map\map.mtl"
-copy /y "$(SolutionDir)Blender\map\grass.png" "$(OutDir)\assets\map\grass.png"
-copy /y "$(SolutionDir)Blender\map\ground.png" "$(OutDir)\assets\map\ground.png"</Command>
+copy /y "$(SolutionDir)Blender\map\bricks.jpg" "$(OutDir)\assets\map\bricks.jpg"
+copy /y "$(SolutionDir)Blender\map\grass.jpg" "$(OutDir)\assets\map\grass.jpg"
+copy /y "$(SolutionDir)Blender\map\ground.jpg" "$(OutDir)\assets\map\ground.jpg"
+copy /y "$(SolutionDir)Blender\map\ocean.jpg" "$(OutDir)\assets\map\ocean.jpg"
+copy /y "$(SolutionDir)Blender\map\sand.jpg" "$(OutDir)\assets\map\sand.jpg"
+copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
+copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -159,8 +169,13 @@ copy /y "$(SolutionDir)Blender\player\player.bmp" "$(OutDir)\assets\player\playe
 mkdir "$(OutDir)\assets\map"
 copy /y "$(SolutionDir)Blender\map\map.obj" "$(OutDir)\assets\map\map.obj"
 copy /y "$(SolutionDir)Blender\map\map.mtl" "$(OutDir)\assets\map\map.mtl"
-copy /y "$(SolutionDir)Blender\map\grass.png" "$(OutDir)\assets\map\grass.png"
-copy /y "$(SolutionDir)Blender\map\ground.png" "$(OutDir)\assets\map\ground.png"</Command>
+copy /y "$(SolutionDir)Blender\map\bricks.jpg" "$(OutDir)\assets\map\bricks.jpg"
+copy /y "$(SolutionDir)Blender\map\grass.jpg" "$(OutDir)\assets\map\grass.jpg"
+copy /y "$(SolutionDir)Blender\map\ground.jpg" "$(OutDir)\assets\map\ground.jpg"
+copy /y "$(SolutionDir)Blender\map\ocean.jpg" "$(OutDir)\assets\map\ocean.jpg"
+copy /y "$(SolutionDir)Blender\map\sand.jpg" "$(OutDir)\assets\map\sand.jpg"
+copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
+copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -186,8 +201,13 @@ copy /y "$(SolutionDir)Blender\player\player.bmp" "$(OutDir)\assets\player\playe
 mkdir "$(OutDir)\assets\map"
 copy /y "$(SolutionDir)Blender\map\map.obj" "$(OutDir)\assets\map\map.obj"
 copy /y "$(SolutionDir)Blender\map\map.mtl" "$(OutDir)\assets\map\map.mtl"
-copy /y "$(SolutionDir)Blender\map\grass.png" "$(OutDir)\assets\map\grass.png"
-copy /y "$(SolutionDir)Blender\map\ground.png" "$(OutDir)\assets\map\ground.png"</Command>
+copy /y "$(SolutionDir)Blender\map\bricks.jpg" "$(OutDir)\assets\map\bricks.jpg"
+copy /y "$(SolutionDir)Blender\map\grass.jpg" "$(OutDir)\assets\map\grass.jpg"
+copy /y "$(SolutionDir)Blender\map\ground.jpg" "$(OutDir)\assets\map\ground.jpg"
+copy /y "$(SolutionDir)Blender\map\ocean.jpg" "$(OutDir)\assets\map\ocean.jpg"
+copy /y "$(SolutionDir)Blender\map\sand.jpg" "$(OutDir)\assets\map\sand.jpg"
+copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
+copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
