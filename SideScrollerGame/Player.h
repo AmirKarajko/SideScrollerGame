@@ -12,6 +12,7 @@ public:
 	vector3df position;
 	float speed = 20.0f;
 	float jumpSpeed = 50.0f;
+	int score = 0;
 
 	Player() {
 		position = vector3df(0, 0, 0);

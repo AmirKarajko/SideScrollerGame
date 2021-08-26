@@ -2,6 +2,8 @@
 
 #include "MyEventReceiver.h"
 #include "Player.h"
+#include <vector>
+#include "Pickup.h"
 
 using namespace irr;
 using namespace core;
@@ -33,6 +35,9 @@ int main() {
 
     guienv->addStaticText(L"Hello World! This is the Irrlicht Software renderer!",
         rect<s32>(10, 10, 260, 22), true);
+
+    // Font
+    IGUIFont* font = device->getGUIEnvironment()->getBuiltInFont();
 
     // Camera
     ICameraSceneNode* camera = smgr->addCameraSceneNode(0, vector3df(0, 20, 20), vector3df(0, 0, 0));
@@ -82,6 +87,48 @@ int main() {
     playerNode->addAnimator(playerCollision);
     playerCollision->drop();
 
+    // Pickup
+    std::vector<Pickup> pickup;
+    // Add Pickups to the map
+    pickup.push_back(Pickup(vector3df(-5, 10, 0.5f)));
+    pickup.push_back(Pickup(vector3df(5, 10, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-22, 13, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-26, 13, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-34, 13, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-38, 13, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-219, 18, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-223, 18, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-221, 28, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-221, 33, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-22, 13, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-254, -3, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-240, 17, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-303, 14, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-307, 14, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-307, 18, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-303, 18, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-303, 77, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-306, 77, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-314, 77, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-427, 6, 0.5f)));
+    pickup.push_back(Pickup(vector3df(-437, 6, 0.5f)));
+    // Pickup Mesh
+    IMesh* pickupMesh = smgr->getMesh("assets/pickup/pickup.obj");
+    if (!pickupMesh) {
+        device->drop();
+        return 1;
+    }
+    std::vector<IMeshSceneNode*> pickupNode;
+    for (int i = 0; i < pickup.size(); i++) {
+        pickupNode.push_back(smgr->addMeshSceneNode(pickupMesh));
+    }
+    for (int i = 0; i < pickupNode.size(); i++) {
+        if (pickupNode[i]) {
+            pickupNode[i]->setMaterialFlag(EMF_LIGHTING, false);
+            pickupNode[i]->setPosition(pickup[i].position);
+        }
+    }
+
     // Time
     u32 then = device->getTimer()->getTime();
 
@@ -94,6 +141,12 @@ int main() {
 
         smgr->drawAll();
         guienv->drawAll();
+
+        // Draw Score
+        stringw scoreString = L"Score: "; scoreString += player.score;
+        font->draw(scoreString, rect<s32>(10, 50, 300, 100), SColor(255, 255, 255, 0));
+
+        driver->endScene();
 
         if (receiver.isKeyDown(KEY_KEY_D)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X - (player.speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
@@ -108,7 +161,17 @@ int main() {
         camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 10, playerNode->getPosition().Z + 10));
         camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - 5, playerNode->getPosition().Z - 5));
 
-        driver->endScene();
+        // Player & pickups
+        for (int i = 0; i < pickupNode.size(); i++) {
+            if (pickupNode[i]->isVisible()) {
+                if (playerNode->getPosition().X + 1 >= pickupNode[i]->getPosition().X && playerNode->getPosition().X <= pickupNode[i]->getPosition().X + 1
+                    && playerNode->getPosition().Y + 1 >= pickupNode[i]->getPosition().Y && playerNode->getPosition().Y <= pickupNode[i]->getPosition().Y + 1
+                    && playerNode->getPosition().Z + 1 >= pickupNode[i]->getPosition().Z && playerNode->getPosition().Z <= pickupNode[i]->getPosition().Z + 1) {
+                    pickupNode[i]->setVisible(false);
+                    player.score += 10;
+                }
+            }
+        }
     }
 
     device->drop();
