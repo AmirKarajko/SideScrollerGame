@@ -1,5 +1,6 @@
 #pragma once
 #ifndef MYEVENTRECEIVER_H
+#define MYEVENTRECEIVER_H
 
 #include <irrlicht.h>
 
