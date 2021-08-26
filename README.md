@@ -10,7 +10,7 @@
 
 # Setup
 
-Copy irrlicht.dll and export Blender models in debug/assets folder to build SideScrollerGame.exe.
+Just click on build to create exe file in Visual Studio.
 
 Download link: irrlicht.sourceforge.io
 
