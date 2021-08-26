@@ -63,8 +63,8 @@ int main() {
     playerNode->addShadowVolumeSceneNode();
     // Player Collision
     ISceneNodeAnimatorCollisionResponse* playerCollision;
-    // Player Animation Loop
-    // playerNode->setFrameLoop(0, 0);
+    // Player IDLE Animation
+    playerNode->setFrameLoop(0, 0);
 
     // Light
     ILightSceneNode* light = smgr->addLightSceneNode(0, vector3df(0, 10, 0));
@@ -150,13 +150,29 @@ int main() {
 
         if (receiver.isKeyDown(KEY_KEY_D)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X - (player.speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
+            if (player.state != player.WALK) {
+                player.state = player.WALK;
+                playerNode->setFrameLoop(0, 80);
+            }
         }
         if (receiver.isKeyDown(KEY_KEY_A)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X + (player.speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
+            if (player.state != player.WALK) {
+                player.state = player.WALK;
+                playerNode->setFrameLoop(0, 80);
+            }
+        }
+        if (!receiver.isKeyDown(KEY_KEY_D) && !receiver.isKeyDown(KEY_KEY_A)) {
+            if (player.state != player.IDLE) {
+                player.state = player.IDLE;
+                playerNode->setFrameLoop(0, 0);
+            }
         }
         if (receiver.isKeyDown(KEY_SPACE)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (player.jumpSpeed * frameDeltaTime), playerNode->getPosition().Z));
         }
+        if (playerCollision->collisionOccurred())
+            playerCollision->jump(0.1f * frameDeltaTime);
 
         camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 10, playerNode->getPosition().Z + 10));
         camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - 5, playerNode->getPosition().Z - 5));
