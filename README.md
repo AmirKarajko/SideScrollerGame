@@ -4,7 +4,7 @@
 
 ## How to play
 
-* W - MOVE RIGHT
+* D - MOVE RIGHT
 * A - MOVE LEFT
 * SPACE - JUMP
 
