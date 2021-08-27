@@ -58,17 +58,16 @@ int main() {
         playerNode->setMaterialFlag(EMF_LIGHTING, false);
         playerNode->setMaterialTexture(0, driver->getTexture("assets/player/player.bmp"));
         playerNode->setPosition(player.position);
+        // Player Shadow
+        playerNode->addShadowVolumeSceneNode();
+        // Player IDLE Animation
+        playerNode->setFrameLoop(0, 0);
     }
-    // Player Shadow
-    playerNode->addShadowVolumeSceneNode();
     // Player Collision
     ISceneNodeAnimatorCollisionResponse* playerCollision;
-    // Player IDLE Animation
-    playerNode->setFrameLoop(0, 0);
 
     // Light
     ILightSceneNode* light = smgr->addLightSceneNode(0, vector3df(0, 10, 0));
-    light->setLightType(E_LIGHT_TYPE::ELT_DIRECTIONAL);
 
     // Map
     IMesh* mapMesh = smgr->getMesh("assets/map/map.obj");
@@ -147,6 +146,9 @@ int main() {
         font->draw(scoreString, rect<s32>(10, 50, 300, 100), SColor(255, 255, 255, 0));
 
         driver->endScene();
+
+        // Light follow player
+        light->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 20, playerNode->getPosition().Z));
 
         if (receiver.isKeyDown(KEY_KEY_D)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X - (player.speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
