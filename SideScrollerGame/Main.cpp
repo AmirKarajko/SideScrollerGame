@@ -29,7 +29,7 @@ int main() {
 
         context.smgr->drawAll();
 
-        context.drawFont();
+        context.drawHUD();
 
         driver->endScene();
     }

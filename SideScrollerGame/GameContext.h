@@ -2,6 +2,7 @@
 #ifndef GAMECONTEXT_H
 #define GAMECONTEXT_H
 
+#include <string>
 #include <vector>
 
 #include<irrlicht.h>
@@ -40,45 +41,27 @@ private:
 
     IGUIFont* font;
 
-public:
-	ISceneManager* smgr;
+    const std::string ASSETS_PATH = "assets/";
+    const std::string MAP_PATH = ASSETS_PATH + "map/";
+    const std::string PLAYER_PATH = ASSETS_PATH + "player/";
+    const std::string PICKUP_PATH = ASSETS_PATH + "pickup/";
 
-	MyEventReceiver* eventReceiver;
+    void addCamera() {
+        // Camera
+        camera = smgr->addCameraSceneNode(0, vector3df(0, 20, 20), vector3df(0, 0, 0));
+        camera->setNearValue(1.0f);
+        camera->setFarValue(1000.0f);
+    }
 
-	ICameraSceneNode* camera;
-
-	void loadLevel() {
-		driver->setTextureCreationFlag(ETCF_CREATE_MIP_MAPS, true);
-
-        // Font
-        font = device->getGUIEnvironment()->getBuiltInFont();
-
-		// Camera
-		camera = smgr->addCameraSceneNode(0, vector3df(0, 20, 20), vector3df(0, 0, 0));
-		camera->setNearValue(1.0f);
-		camera->setFarValue(1000.0f);
-
-        // Player
-        player = new Player(vector3df(0, 10, 0.5f));
-
-        // Player Mesh
-        IAnimatedMesh* playerMesh = smgr->getMesh("assets/player/player.md2");
-        playerNode = smgr->addAnimatedMeshSceneNode(playerMesh);
-        if (playerNode) {
-            playerNode->setMaterialFlag(EMF_LIGHTING, false);
-            playerNode->setMaterialTexture(0, driver->getTexture("assets/player/player.bmp"));
-            playerNode->setPosition(player->position);
-            // Player Shadow
-            playerNode->addShadowVolumeSceneNode();
-            // Player IDLE Animation
-            playerNode->setFrameLoop(0, 0);
-        }
-
+    void addWorld() {
         // Light
         light = smgr->addLightSceneNode(0, vector3df(0, 20, 0));
 
         // Map
-        IMesh* mapMesh = smgr->getMesh("assets/map/map.obj");
+        std::string mapObjFilePath = MAP_PATH;
+        mapObjFilePath += "map.obj";
+
+        IMesh* mapMesh = smgr->getMesh(mapObjFilePath.c_str());
         IMeshSceneNode* mapNode = smgr->addMeshSceneNode(mapMesh);
         if (mapNode) {
             mapNode->setMaterialFlag(EMF_LIGHTING, false);
@@ -86,10 +69,36 @@ public:
 
         // Add Collision
         world = smgr->createOctreeTriangleSelector(mapNode->getMesh(), mapNode);
+    }
+
+    void addPlayer() {
+        // Player
+        player = new Player(vector3df(0, 10, 0.5f));
+
+        // Player Mesh
+        std::string playerMd2FilePath = PLAYER_PATH;
+        playerMd2FilePath += "player.md2";
+        std::string playerTextureFilePath = PLAYER_PATH;
+        playerTextureFilePath += "player.bmp";
+
+        IAnimatedMesh* playerMesh = smgr->getMesh(playerMd2FilePath.c_str());
+        playerNode = smgr->addAnimatedMeshSceneNode(playerMesh);
+        if (playerNode) {
+            playerNode->setMaterialFlag(EMF_LIGHTING, false);
+            playerNode->setMaterialTexture(0, driver->getTexture(playerTextureFilePath.c_str()));
+            playerNode->setPosition(player->position);
+            // Player Shadow
+            playerNode->addShadowVolumeSceneNode();
+            // Player IDLE Animation
+            playerNode->setFrameLoop(0, 0);
+        }
+
         playerCollision = smgr->createCollisionResponseAnimator(world, playerNode, vector3df(0.5f, 2, 0.5f), vector3df(0, -0.1f, 0));
         playerNode->addAnimator(playerCollision);
         playerCollision->drop();
+    }
 
+    void addPickups() {
         // Pickup
         std::vector<Pickup> pickup;
         // Add Pickups to the map
@@ -116,7 +125,10 @@ public:
         pickup.push_back(Pickup(vector3df(-427, 6, 0.5f)));
         pickup.push_back(Pickup(vector3df(-437, 6, 0.5f)));
         // Pickup Mesh
-        IMesh* pickupMesh = smgr->getMesh("assets/pickup/pickup.obj");
+        std::string pickupObjFilePath = PICKUP_PATH;
+        pickupObjFilePath += "pickup.obj";
+
+        IMesh* pickupMesh = smgr->getMesh(pickupObjFilePath.c_str());
 
         for (int i = 0; i < pickup.size(); i++) {
             pickupNode.push_back(smgr->addMeshSceneNode(pickupMesh));
@@ -127,6 +139,25 @@ public:
                 pickupNode[i]->setPosition(pickup[i].position);
             }
         }
+    }
+
+public:
+	ISceneManager* smgr;
+
+	MyEventReceiver* eventReceiver;
+
+	ICameraSceneNode* camera;
+
+	void loadLevel() {
+		driver->setTextureCreationFlag(ETCF_CREATE_MIP_MAPS, true);
+
+        // Font
+        font = device->getGUIEnvironment()->getBuiltInFont();
+
+        addCamera();
+        addWorld();
+        addPlayer();
+        addPickups();
 	}
 
 	void setDevice(IrrlichtDevice* device) {
@@ -151,9 +182,34 @@ public:
 		const f32 frameDeltaTime = (f32)(now - then) / 1000.f;
 		then = now;
 
-        // Light follow player
+        updateCamera();
+        updatePlayerControls(frameDeltaTime);
+        updatePlayer();
+	}
+
+    void updateCamera() {
+        camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 10, playerNode->getPosition().Z + 10));
+        camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - 5, playerNode->getPosition().Z - 5));
+    }
+
+    void updatePlayer() {
+        // Light follows player
         light->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 20, playerNode->getPosition().Z));
 
+        // Player & pickups
+        for (int i = 0; i < pickupNode.size(); i++) {
+            if (pickupNode[i]->isVisible()) {
+                if (playerNode->getPosition().X + 1 >= pickupNode[i]->getPosition().X && playerNode->getPosition().X <= pickupNode[i]->getPosition().X + 1
+                    && playerNode->getPosition().Y + 1 >= pickupNode[i]->getPosition().Y && playerNode->getPosition().Y <= pickupNode[i]->getPosition().Y + 1
+                    && playerNode->getPosition().Z + 1 >= pickupNode[i]->getPosition().Z && playerNode->getPosition().Z <= pickupNode[i]->getPosition().Z + 1) {
+                    pickupNode[i]->setVisible(false);
+                    score += 10;
+                }
+            }
+        }
+    }
+
+    void updatePlayerControls(f32 frameDeltaTime) {
         if (eventReceiver->isKeyDown(KEY_KEY_D)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X - (player->speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
             if (player->state != player->WALK) {
@@ -186,24 +242,9 @@ public:
         if (eventReceiver->isKeyDown(KEY_F5)) {
             reset();
         }
+    }
 
-        camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 10, playerNode->getPosition().Z + 10));
-        camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - 5, playerNode->getPosition().Z - 5));
-
-        // Player & pickups
-        for (int i = 0; i < pickupNode.size(); i++) {
-            if (pickupNode[i]->isVisible()) {
-                if (playerNode->getPosition().X + 1 >= pickupNode[i]->getPosition().X && playerNode->getPosition().X <= pickupNode[i]->getPosition().X + 1
-                    && playerNode->getPosition().Y + 1 >= pickupNode[i]->getPosition().Y && playerNode->getPosition().Y <= pickupNode[i]->getPosition().Y + 1
-                    && playerNode->getPosition().Z + 1 >= pickupNode[i]->getPosition().Z && playerNode->getPosition().Z <= pickupNode[i]->getPosition().Z + 1) {
-                    pickupNode[i]->setVisible(false);
-                    score += 10;
-                }
-            }
-        }
-	}
-
-    void drawFont() {
+    void drawHUD() {
         stringw scoreString = L"Score: "; scoreString += score;
         font->draw(scoreString, rect<s32>(10, 50, 300, 100), SColor(255, 255, 255, 0));
     }
