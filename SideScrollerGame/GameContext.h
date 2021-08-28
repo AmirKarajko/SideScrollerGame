@@ -75,7 +75,7 @@ public:
         }
 
         // Light
-        light = smgr->addLightSceneNode(0, vector3df(0, 10, 0));
+        light = smgr->addLightSceneNode(0, vector3df(0, 20, 0));
 
         // Map
         IMesh* mapMesh = smgr->getMesh("assets/map/map.obj");
@@ -180,6 +180,10 @@ public:
         if (playerCollision->collisionOccurred())
             playerCollision->jump(1.f * frameDeltaTime);
 
+        if (eventReceiver->isKeyDown(KEY_F5)) {
+            reset();
+        }
+
         camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 10, playerNode->getPosition().Z + 10));
         camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - 5, playerNode->getPosition().Z - 5));
 
@@ -201,6 +205,10 @@ public:
         font->draw(scoreString, rect<s32>(10, 50, 300, 100), SColor(255, 255, 255, 0));
     }
 
+    void reset() {
+        playerNode->setPosition(player->position);
+        light->setPosition(vector3df(0, 20, 0));
+    }
 	
 };
 
