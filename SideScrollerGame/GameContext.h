@@ -177,8 +177,11 @@ public:
         if (eventReceiver->isKeyDown(KEY_SPACE)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (player->jumpSpeed * frameDeltaTime), playerNode->getPosition().Z));
         }
-        if (playerCollision->collisionOccurred())
-            playerCollision->jump(1.f * frameDeltaTime);
+
+        if (eventReceiver->isKeyDown(KEY_KEY_D) || eventReceiver->isKeyDown(KEY_KEY_A)) {
+            if (playerCollision->collisionOccurred())
+                playerCollision->jump(1.f * frameDeltaTime);
+        }
 
         if (eventReceiver->isKeyDown(KEY_F5)) {
             reset();
