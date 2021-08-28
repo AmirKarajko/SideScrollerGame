@@ -226,6 +226,7 @@ copy /y "$(SolutionDir)Blender\pickup\pickup.mtl" "$(OutDir)\assets\pickup\picku
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameContext.h" />
     <ClInclude Include="MyEventReceiver.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
