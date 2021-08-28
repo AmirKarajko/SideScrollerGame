@@ -12,7 +12,6 @@ public:
 	vector3df position;
 	float speed = 20.0f;
 	float jumpSpeed = 50.0f;
-	int score = 0;
 
 	const int IDLE = 0, WALK = 1, JUMP = 2; // Jump Animation Missing
 	int state = IDLE;
