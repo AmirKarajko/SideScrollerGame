@@ -211,7 +211,10 @@ public:
     }
 
     void updatePlayerControls(f32 frameDeltaTime) {
-        if (eventReceiver->isKeyDown(KEY_KEY_D)) {
+        const bool leftKey = eventReceiver->isKeyDown(KEY_KEY_A);
+        const bool rightKey = eventReceiver->isKeyDown(KEY_KEY_D);
+
+        if (!leftKey && rightKey) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X - (player->speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
             if (player->state != player->WALK) {
                 player->state = player->WALK;
@@ -219,7 +222,7 @@ public:
             }
             playerNode->setRotation(vector3df(0, 0, 0));
         }
-        if (eventReceiver->isKeyDown(KEY_KEY_A)) {
+        else if (leftKey && !rightKey) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X + (player->speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
             if (player->state != player->WALK) {
                 player->state = player->WALK;
@@ -227,12 +230,13 @@ public:
             }
             playerNode->setRotation(vector3df(0, 180, 0));
         }
-        if (!eventReceiver->isKeyDown(KEY_KEY_D) && !eventReceiver->isKeyDown(KEY_KEY_A)) {
+        else {
             if (player->state != player->IDLE) {
                 player->state = player->IDLE;
                 playerNode->setFrameLoop(0, 0);
             }
         }
+
         if (eventReceiver->isKeyDown(KEY_SPACE)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (player->jumpSpeed * frameDeltaTime), playerNode->getPosition().Z));
         }
