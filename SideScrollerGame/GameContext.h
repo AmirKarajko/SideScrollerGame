@@ -37,7 +37,7 @@ private:
 
     int score = 0;
 
-    std::vector<IMeshSceneNode*> pickupNode;
+    std::vector<IAnimatedMeshSceneNode*> pickupNode;
 
     IGUIFont* font;
 
@@ -101,43 +101,52 @@ private:
 
     void addPickups() {
         // Pickup
-        std::vector<Pickup> pickup;
+        std::vector<Pickup> pickups;
         // Add Pickups to the map
-        pickup.push_back(Pickup(vector3df(-5, 10, 0.5f)));
-        pickup.push_back(Pickup(vector3df(5, 10, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-22, 13, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-26, 13, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-34, 13, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-38, 13, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-219, 18, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-223, 18, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-221, 28, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-221, 33, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-22, 13, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-254, -3, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-240, 17, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-303, 14, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-307, 14, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-307, 18, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-303, 18, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-303, 77, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-306, 77, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-314, 77, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-427, 6, 0.5f)));
-        pickup.push_back(Pickup(vector3df(-437, 6, 0.5f)));
+        pickups.push_back(Pickup(-5, 10, 0.5f));
+        pickups.push_back(Pickup(5, 10, 0.5f));
+        pickups.push_back(Pickup(-22, 13, 0.5f));
+        pickups.push_back(Pickup(-26, 13, 0.5f));
+        pickups.push_back(Pickup(-34, 13, 0.5f));
+        pickups.push_back(Pickup(-38, 13, 0.5f));
+        pickups.push_back(Pickup(-219, 18, 0.5f));
+        pickups.push_back(Pickup(-223, 18, 0.5f));
+        pickups.push_back(Pickup(-221, 28, 0.5f));
+        pickups.push_back(Pickup(-221, 33, 0.5f));
+        pickups.push_back(Pickup(-22, 13, 0.5f));
+        pickups.push_back(Pickup(-254, -3, 0.5f));
+        pickups.push_back(Pickup(-240, 17, 0.5f));
+        pickups.push_back(Pickup(-303, 14, 0.5f));
+        pickups.push_back(Pickup(-307, 14, 0.5f));
+        pickups.push_back(Pickup(-307, 18, 0.5f));
+        pickups.push_back(Pickup(-303, 18, 0.5f));
+        pickups.push_back(Pickup(-303, 77, 0.5f));
+        pickups.push_back(Pickup(-306, 77, 0.5f));
+        pickups.push_back(Pickup(-314, 77, 0.5f));
+        pickups.push_back(Pickup(-427, 6, 0.5f));
+        pickups.push_back(Pickup(-437, 6, 0.5f));
         // Pickup Mesh
-        std::string pickupObjFilePath = PICKUP_PATH;
-        pickupObjFilePath += "pickup.obj";
+        std::string pickupMD2FilePath = PICKUP_PATH;
+        pickupMD2FilePath += "diamond/diamond.md2";
+        std::string pickupTextureFilePath = PICKUP_PATH;
+        pickupTextureFilePath += "diamond/diamond.bmp";
 
-        IMesh* pickupMesh = smgr->getMesh(pickupObjFilePath.c_str());
+        IAnimatedMesh* pickupMesh = smgr->getMesh(pickupMD2FilePath.c_str());
 
-        for (int i = 0; i < pickup.size(); i++) {
-            pickupNode.push_back(smgr->addMeshSceneNode(pickupMesh));
+        for (int i = 0; i < pickups.size(); i++) {
+            pickupNode.push_back(smgr->addAnimatedMeshSceneNode(pickupMesh));
         }
         for (int i = 0; i < pickupNode.size(); i++) {
             if (pickupNode[i]) {
-                pickupNode[i]->setMaterialFlag(EMF_LIGHTING, false);
-                pickupNode[i]->setPosition(pickup[i].position);
+                pickupNode[i]->setMaterialFlag(EMF_LIGHTING, true);
+                pickupNode[i]->setMaterialTexture(0, driver->getTexture(pickupTextureFilePath.c_str()));
+
+                pickupNode[i]->getMaterial(0).Shininess = 90.0f;
+                pickupNode[i]->getMaterial(0).MaterialType = EMT_TRANSPARENT_VERTEX_ALPHA;
+                scene::IMeshManipulator* mesh = smgr->getMeshManipulator();
+                mesh->setVertexColorAlpha(pickupNode[i]->getMesh(), 160.0f);
+
+                pickupNode[i]->setPosition(pickups[i].position);
             }
         }
     }
