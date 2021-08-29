@@ -13,7 +13,7 @@ public:
 	float speed = 20.0f;
 	float jumpSpeed = 50.0f;
 
-	const int IDLE = 0, WALK = 1, JUMP = 2; // Jump Animation Missing
+	const int IDLE = 0, WALK = 1, JUMP = 2;
 	int state = IDLE;
 
 	Player() {
