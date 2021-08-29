@@ -91,6 +91,7 @@ private:
             playerNode->addShadowVolumeSceneNode();
             // Player IDLE Animation
             playerNode->setFrameLoop(0, 0);
+            playerNode->setAnimationSpeed(300);
         }
 
         playerCollision = smgr->createCollisionResponseAnimator(world, playerNode, vector3df(0.5f, 2, 0.5f), vector3df(0, -0.1f, 0));
@@ -214,15 +215,17 @@ public:
             playerNode->setPosition(vector3df(playerNode->getPosition().X - (player->speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
             if (player->state != player->WALK) {
                 player->state = player->WALK;
-                playerNode->setFrameLoop(0, 80);
+                playerNode->setFrameLoop(0, 159);
             }
+            playerNode->setRotation(vector3df(0, 0, 0));
         }
         if (eventReceiver->isKeyDown(KEY_KEY_A)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X + (player->speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
             if (player->state != player->WALK) {
                 player->state = player->WALK;
-                playerNode->setFrameLoop(0, 80);
+                playerNode->setFrameLoop(0, 159);
             }
+            playerNode->setRotation(vector3df(0, 180, 0));
         }
         if (!eventReceiver->isKeyDown(KEY_KEY_D) && !eventReceiver->isKeyDown(KEY_KEY_A)) {
             if (player->state != player->IDLE) {
