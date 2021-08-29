@@ -233,6 +233,12 @@ public:
                 playerNode->setFrameLoop(0, 0);
             }
         }
+        if (eventReceiver->isKeyDown(KEY_KEY_D) && eventReceiver->isKeyDown(KEY_KEY_A)) {
+            if (player->state != player->IDLE) {
+                player->state = player->IDLE;
+                playerNode->setFrameLoop(0, 0);
+            }
+        }
         if (eventReceiver->isKeyDown(KEY_SPACE)) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (player->jumpSpeed * frameDeltaTime), playerNode->getPosition().Z));
         }
