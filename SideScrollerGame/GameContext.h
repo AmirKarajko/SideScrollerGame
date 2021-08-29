@@ -222,12 +222,14 @@ public:
                     if (player->state != player->WALK) {
                         player->state = player->WALK;
                         playerNode->setFrameLoop(0, 159);
+                        playerNode->setAnimationSpeed(300);
                     }
             }
             else {
                 if (player->state != player->JUMP) {
                     player->state = player->JUMP;
-                    playerNode->setFrameLoop(161, 319);
+                    playerNode->setFrameLoop(166, 330);
+                    playerNode->setAnimationSpeed(150);
                 }
             }
             playerNode->setRotation(vector3df(0, 0, 0));
@@ -239,12 +241,14 @@ public:
                     if (player->state != player->WALK) {
                         player->state = player->WALK;
                         playerNode->setFrameLoop(0, 159);
+                        playerNode->setAnimationSpeed(300);
                     }
             }
             else {
                 if (player->state != player->JUMP) {
                     player->state = player->JUMP;
-                    playerNode->setFrameLoop(161, 319);
+                    playerNode->setFrameLoop(166, 330);
+                    playerNode->setAnimationSpeed(150);
                 }
             }
             playerNode->setRotation(vector3df(0, 180, 0));
@@ -255,12 +259,14 @@ public:
                     if (player->state != player->IDLE) {
                         player->state = player->IDLE;
                         playerNode->setFrameLoop(0, 0);
+                        playerNode->setAnimationSpeed(300);
                     }
             }
             else {
                 if (player->state != player->JUMP) {
                     player->state = player->JUMP;
-                    playerNode->setFrameLoop(161, 319);
+                    playerNode->setFrameLoop(166, 330);
+                    playerNode->setAnimationSpeed(150);
                 }
             }
         }
