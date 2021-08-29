@@ -19,6 +19,10 @@ public:
 	Pickup(vector3df position) {
 		this->position = position;
 	}
+
+	Pickup(f32 x, f32 y, f32 z) : Pickup(vector3df(x, y, z)) {
+
+	}
 };
 
 #endif // !1
