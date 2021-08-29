@@ -222,31 +222,65 @@ public:
     void updatePlayerControls(f32 frameDeltaTime) {
         const bool leftKey = eventReceiver->isKeyDown(KEY_KEY_A);
         const bool rightKey = eventReceiver->isKeyDown(KEY_KEY_D);
+        const bool spaceKey = eventReceiver->isKeyDown(KEY_SPACE);
 
         if (!leftKey && rightKey) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X - (player->speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
-            if (player->state != player->WALK) {
-                player->state = player->WALK;
-                playerNode->setFrameLoop(0, 159);
+            if (!spaceKey) {
+                if (playerCollision->collisionOccurred())
+                    if (player->state != player->WALK) {
+                        player->state = player->WALK;
+                        playerNode->setFrameLoop(0, 159);
+                        playerNode->setAnimationSpeed(300);
+                    }
+            }
+            else {
+                if (player->state != player->JUMP) {
+                    player->state = player->JUMP;
+                    playerNode->setFrameLoop(166, 330);
+                    playerNode->setAnimationSpeed(150);
+                }
             }
             playerNode->setRotation(vector3df(0, 0, 0));
         }
         else if (leftKey && !rightKey) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X + (player->speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
-            if (player->state != player->WALK) {
-                player->state = player->WALK;
-                playerNode->setFrameLoop(0, 159);
+            if (!spaceKey) {
+                if (playerCollision->collisionOccurred())
+                    if (player->state != player->WALK) {
+                        player->state = player->WALK;
+                        playerNode->setFrameLoop(0, 159);
+                        playerNode->setAnimationSpeed(300);
+                    }
+            }
+            else {
+                if (player->state != player->JUMP) {
+                    player->state = player->JUMP;
+                    playerNode->setFrameLoop(166, 330);
+                    playerNode->setAnimationSpeed(150);
+                }
             }
             playerNode->setRotation(vector3df(0, 180, 0));
         }
         else {
-            if (player->state != player->IDLE) {
-                player->state = player->IDLE;
-                playerNode->setFrameLoop(0, 0);
+            if (!spaceKey) {
+                if (playerCollision->collisionOccurred())
+                    if (player->state != player->IDLE) {
+                        player->state = player->IDLE;
+                        playerNode->setFrameLoop(0, 0);
+                        playerNode->setAnimationSpeed(300);
+                    }
+            }
+            else {
+                if (player->state != player->JUMP) {
+                    player->state = player->JUMP;
+                    playerNode->setFrameLoop(166, 330);
+                    playerNode->setAnimationSpeed(150);
+                }
             }
         }
 
-        if (eventReceiver->isKeyDown(KEY_SPACE)) {
+        if (spaceKey) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (player->jumpSpeed * frameDeltaTime), playerNode->getPosition().Z));
         }
 
