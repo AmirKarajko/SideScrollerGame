@@ -37,7 +37,7 @@ private:
 
     int score = 0;
 
-    std::vector<IMeshSceneNode*> pickupNode;
+    std::vector<IAnimatedMeshSceneNode*> pickupNode;
 
     IGUIFont* font;
 
@@ -126,17 +126,20 @@ private:
         pickup.push_back(Pickup(vector3df(-427, 6, 0.5f)));
         pickup.push_back(Pickup(vector3df(-437, 6, 0.5f)));
         // Pickup Mesh
-        std::string pickupObjFilePath = PICKUP_PATH;
-        pickupObjFilePath += "pickup.obj";
+        std::string pickupMD2FilePath = PICKUP_PATH;
+        pickupMD2FilePath += "diamond/diamond.md2";
+        std::string pickupTextureFilePath = PICKUP_PATH;
+        pickupTextureFilePath += "diamond/diamond.bmp";
 
-        IMesh* pickupMesh = smgr->getMesh(pickupObjFilePath.c_str());
+        IAnimatedMesh* pickupMesh = smgr->getMesh(pickupMD2FilePath.c_str());
 
         for (int i = 0; i < pickup.size(); i++) {
-            pickupNode.push_back(smgr->addMeshSceneNode(pickupMesh));
+            pickupNode.push_back(smgr->addAnimatedMeshSceneNode(pickupMesh));
         }
         for (int i = 0; i < pickupNode.size(); i++) {
             if (pickupNode[i]) {
                 pickupNode[i]->setMaterialFlag(EMF_LIGHTING, false);
+                pickupNode[i]->setMaterialTexture(0, driver->getTexture(pickupTextureFilePath.c_str()));
                 pickupNode[i]->setPosition(pickup[i].position);
             }
         }

@@ -116,9 +116,9 @@ copy /y "$(SolutionDir)Blender\map\ocean.jpg" "$(OutDir)\assets\map\ocean.jpg"
 copy /y "$(SolutionDir)Blender\map\sand.jpg" "$(OutDir)\assets\map\sand.jpg"
 copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
 copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"
-mkdir "$(OutDir)\assets\pickup"
-copy /y "$(SolutionDir)Blender\pickup\pickup.obj" "$(OutDir)\assets\pickup\pickup.obj"
-copy /y "$(SolutionDir)Blender\pickup\pickup.mtl" "$(OutDir)\assets\pickup\pickup.mtl"</Command>
+mkdir "$(OutDir)\assets\pickup\diamond"
+copy /y "$(SolutionDir)Blender\pickup\\diamond\diamond.md2" "$(OutDir)\assets\pickup\diamond\diamond.md2"
+copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -151,9 +151,9 @@ copy /y "$(SolutionDir)Blender\map\ocean.jpg" "$(OutDir)\assets\map\ocean.jpg"
 copy /y "$(SolutionDir)Blender\map\sand.jpg" "$(OutDir)\assets\map\sand.jpg"
 copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
 copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"
-mkdir "$(OutDir)\assets\pickup"
-copy /y "$(SolutionDir)Blender\pickup\pickup.obj" "$(OutDir)\assets\pickup\pickup.obj"
-copy /y "$(SolutionDir)Blender\pickup\pickup.mtl" "$(OutDir)\assets\pickup\pickup.mtl"</Command>
+mkdir "$(OutDir)\assets\pickup\diamond"
+copy /y "$(SolutionDir)Blender\pickup\\diamond\diamond.md2" "$(OutDir)\assets\pickup\diamond\diamond.md2"
+copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -182,9 +182,9 @@ copy /y "$(SolutionDir)Blender\map\ocean.jpg" "$(OutDir)\assets\map\ocean.jpg"
 copy /y "$(SolutionDir)Blender\map\sand.jpg" "$(OutDir)\assets\map\sand.jpg"
 copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
 copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"
-mkdir "$(OutDir)\assets\pickup"
-copy /y "$(SolutionDir)Blender\pickup\pickup.obj" "$(OutDir)\assets\pickup\pickup.obj"
-copy /y "$(SolutionDir)Blender\pickup\pickup.mtl" "$(OutDir)\assets\pickup\pickup.mtl"</Command>
+mkdir "$(OutDir)\assets\pickup\diamond"
+copy /y "$(SolutionDir)Blender\pickup\\diamond\diamond.md2" "$(OutDir)\assets\pickup\diamond\diamond.md2"
+copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -217,9 +217,9 @@ copy /y "$(SolutionDir)Blender\map\ocean.jpg" "$(OutDir)\assets\map\ocean.jpg"
 copy /y "$(SolutionDir)Blender\map\sand.jpg" "$(OutDir)\assets\map\sand.jpg"
 copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
 copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"
-mkdir "$(OutDir)\assets\pickup"
-copy /y "$(SolutionDir)Blender\pickup\pickup.obj" "$(OutDir)\assets\pickup\pickup.obj"
-copy /y "$(SolutionDir)Blender\pickup\pickup.mtl" "$(OutDir)\assets\pickup\pickup.mtl"</Command>
+mkdir "$(OutDir)\assets\pickup\diamond"
+copy /y "$(SolutionDir)Blender\pickup\\diamond\diamond.md2" "$(OutDir)\assets\pickup\diamond\diamond.md2"
+copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
