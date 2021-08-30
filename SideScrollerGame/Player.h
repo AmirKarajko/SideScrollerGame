@@ -13,7 +13,7 @@ public:
 	float speed = 20.0f;
 	float jumpSpeed = 50.0f;
 
-	const int IDLE = 0, WALK = 1, JUMP = 2;
+	const int IDLE = 0, WALK = 1, JUMP = 2, WAVE = 3, PUSHUP = 4, CROUCH = 5;
 	int state = IDLE;
 
 	Player() {
