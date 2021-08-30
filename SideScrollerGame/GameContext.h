@@ -10,6 +10,7 @@
 #include "MyEventReceiver.h"
 #include "Player.h"
 #include "Pickup.h"
+#include "ClothesMenu.h"
 
 using namespace irr;
 using namespace core;
@@ -25,8 +26,6 @@ private:
 	IVideoDriver* driver;
 	IrrlichtDevice* device;
 
-    IGUIEnvironment* guienv;
-
     ILightSceneNode* light;
 
     Player* player;
@@ -38,6 +37,8 @@ private:
     int score = 0;
 
     std::vector<IAnimatedMeshSceneNode*> pickupNode;
+
+    ClothesMenu clothesMenu;
 
     IGUIFont* font;
 
@@ -154,9 +155,15 @@ private:
 public:
 	ISceneManager* smgr;
 
+    IGUIEnvironment* guienv;
+
 	MyEventReceiver* eventReceiver;
 
 	ICameraSceneNode* camera;
+
+    GameContext() {
+
+    }
 
 	void loadLevel() {
 		driver->setTextureCreationFlag(ETCF_CREATE_MIP_MAPS, true);
@@ -181,6 +188,9 @@ public:
         guienv = device->getGUIEnvironment();
 
 		device->setWindowCaption(L"Side Scroller Game");
+
+        ClothesMenu clothesMenu(device);
+        this->clothesMenu = clothesMenu;
 	}
 
 	void setDriver(IVideoDriver* driver) {
@@ -226,6 +236,7 @@ public:
         const bool waveKey = eventReceiver->isKeyDown(KEY_KEY_1);
         const bool pushupKey = eventReceiver->isKeyDown(KEY_KEY_2);
         const bool crouchKey = eventReceiver->isKeyDown(KEY_KEY_S);
+        const bool clothesMenuKey = eventReceiver->isKeyDown(KEY_F10);
 
         if (!leftKey && rightKey) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X - (player->speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
@@ -310,13 +321,22 @@ public:
             playerNode->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (player->jumpSpeed * frameDeltaTime), playerNode->getPosition().Z));
         }
 
-        if (eventReceiver->isKeyDown(KEY_KEY_D) || eventReceiver->isKeyDown(KEY_KEY_A)) {
+        if (leftKey || rightKey) {
             if (playerCollision->collisionOccurred())
                 playerCollision->jump(1.f * frameDeltaTime);
         }
 
         if (eventReceiver->isKeyDown(KEY_F5)) {
             reset();
+        }
+
+        if (clothesMenuKey) {
+            if (!clothesMenu.isOpen()) {
+                clothesMenu.open();
+            }
+            else {
+                clothesMenu.close();
+            }
         }
     }
 

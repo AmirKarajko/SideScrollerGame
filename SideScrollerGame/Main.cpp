@@ -31,6 +31,8 @@ int main() {
 
         context.drawHUD();
 
+        context.guienv->drawAll();
+
         driver->endScene();
     }
 
