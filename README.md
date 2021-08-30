@@ -6,7 +6,10 @@
 
 * D - MOVE RIGHT
 * A - MOVE LEFT
+* S - CROUCH
 * SPACE - JUMP
+* 1 - WAVE
+* 2 - PUSH UP
 
 # Setup
 
