@@ -10,6 +10,7 @@
 * SPACE - JUMP
 * 1 - WAVE
 * 2 - PUSH UP
+* F5 - Reset
 
 # Setup
 
