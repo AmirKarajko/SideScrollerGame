@@ -38,7 +38,7 @@ private:
 
     std::vector<IAnimatedMeshSceneNode*> pickupNode;
 
-    ClothesMenu clothesMenu;
+    ClothesMenu* clothesMenu;
 
     IGUIFont* font;
 
@@ -98,6 +98,8 @@ private:
         playerCollision = smgr->createCollisionResponseAnimator(world, playerNode, vector3df(0.5f, 2, 0.5f), vector3df(0, -0.1f, 0));
         playerNode->addAnimator(playerCollision);
         playerCollision->drop();
+
+        this->clothesMenu->setPlayer(playerNode);
     }
 
     void addPickups() {
@@ -181,16 +183,15 @@ public:
 		this->device = device;
 		then = device->getTimer()->getTime();
 
-		eventReceiver = new MyEventReceiver();
+        this->clothesMenu = new ClothesMenu(device);
+
+		eventReceiver = new MyEventReceiver(this->clothesMenu);
 		device->setEventReceiver(eventReceiver);
         smgr = device->getSceneManager();
 
         guienv = device->getGUIEnvironment();
 
 		device->setWindowCaption(L"Side Scroller Game");
-
-        ClothesMenu clothesMenu(device);
-        this->clothesMenu = clothesMenu;
 	}
 
 	void setDriver(IVideoDriver* driver) {
@@ -236,7 +237,6 @@ public:
         const bool waveKey = eventReceiver->isKeyDown(KEY_KEY_1);
         const bool pushupKey = eventReceiver->isKeyDown(KEY_KEY_2);
         const bool crouchKey = eventReceiver->isKeyDown(KEY_KEY_S);
-        const bool clothesMenuKey = eventReceiver->isKeyDown(KEY_F10);
 
         if (!leftKey && rightKey) {
             playerNode->setPosition(vector3df(playerNode->getPosition().X - (player->speed * frameDeltaTime), playerNode->getPosition().Y, playerNode->getPosition().Z));
@@ -328,15 +328,6 @@ public:
 
         if (eventReceiver->isKeyDown(KEY_F5)) {
             reset();
-        }
-
-        if (clothesMenuKey) {
-            if (!clothesMenu.isOpen()) {
-                clothesMenu.open();
-            }
-            else {
-                clothesMenu.close();
-            }
         }
     }
 
