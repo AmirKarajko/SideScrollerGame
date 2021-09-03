@@ -121,7 +121,7 @@ public:
 		}
 
 		if (!textureImage) {
-			imageFile = fileSystem->createAndOpenFile("player.bmp");
+			imageFile = fileSystem->createAndOpenFile("assets/player/player.bmp");
 
 			ITexture* texture = driver->getTexture(imageFile);
 
