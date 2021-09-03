@@ -183,7 +183,7 @@ public:
 		this->device = device;
 		then = device->getTimer()->getTime();
 
-        this->clothesMenu = new ClothesMenu(device);
+        this->clothesMenu = new ClothesMenu(device, driver);
 
 		eventReceiver = new MyEventReceiver(this->clothesMenu);
 		device->setEventReceiver(eventReceiver);
@@ -209,8 +209,9 @@ public:
 	}
 
     void updateCamera() {
-        camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 10, playerNode->getPosition().Z + 10));
-        camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - 5, playerNode->getPosition().Z - 5));
+        f32 zoom = 0.5f;
+        camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (10.0f * zoom), playerNode->getPosition().Z + (10.0f * zoom)));
+        camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - (5.0f * zoom), playerNode->getPosition().Z - (5.0f * zoom)));
     }
 
     void updatePlayer() {

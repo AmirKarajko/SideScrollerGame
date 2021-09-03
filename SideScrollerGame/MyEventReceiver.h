@@ -24,8 +24,15 @@ public:
 		if (event.EventType == EET_GUI_EVENT) {
 			if (event.GUIEvent.EventType == EGET_BUTTON_CLICKED) {
 				s32 id = event.GUIEvent.Caller->getID();
-				if (id == 500) {
+				switch (id) {
+				case 500:
 					clothesMenu->setRandomTShirtColor();
+					return true;
+				case 501:
+					clothesMenu->setRandomPantsColor();
+					return true;
+				default:
+					break;
 				}
 			}
 		}

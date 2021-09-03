@@ -1,3 +1,5 @@
+#include<time.h>
+
 #include<irrlicht.h>
 
 using namespace irr;
@@ -11,6 +13,8 @@ using namespace video;
 #include "GameContext.h"
 
 int main() {
+    srand(time(NULL));
+
     IrrlichtDevice* device = createDevice(EDT_OPENGL, dimension2d<u32>(1024, 768), 16, false, true, false, 0);
     if (!device)
         return 1;
@@ -18,8 +22,8 @@ int main() {
     IVideoDriver* driver = device->getVideoDriver();
 
     GameContext context;
-    context.setDevice(device);
     context.setDriver(driver);
+    context.setDevice(device);
     context.loadLevel();
 
     while (device->run()) {
