@@ -36,6 +36,6 @@ Download link: https://github.com/michaeleggers/Quake2modding
 # Credits
 
 Sounds
-*Pickup: https://freesound.org/people/Davidsraba/sounds/347174/
+* Pickup: https://freesound.org/people/Davidsraba/sounds/347174/
 
 ## Copyright © 2021
