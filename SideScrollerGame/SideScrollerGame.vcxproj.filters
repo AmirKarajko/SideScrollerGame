@@ -35,5 +35,8 @@
     <ClInclude Include="ClothesMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SoundContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,6 +12,8 @@
 #include "Pickup.h"
 #include "ClothesMenu.h"
 
+#include "SoundContext.h"
+
 using namespace irr;
 using namespace core;
 using namespace scene;
@@ -39,6 +41,8 @@ private:
     std::vector<IAnimatedMeshSceneNode*> pickupNode;
 
     ClothesMenu* clothesMenu;
+
+    SoundContext soundContext;
 
     IGUIFont* font;
 
@@ -248,6 +252,7 @@ public:
                     && playerNode->getPosition().Z + 1 >= pickupNode[i]->getPosition().Z && playerNode->getPosition().Z <= pickupNode[i]->getPosition().Z + 1) {
                     pickupNode[i]->setVisible(false);
                     score += 10;
+                    soundContext.playPickupSound();
                 }
             }
         }
