@@ -10,6 +10,7 @@
 #include "MyEventReceiver.h"
 #include "Player.h"
 #include "Pickup.h"
+#include "ClothesMenu.h"
 
 using namespace irr;
 using namespace core;
@@ -25,8 +26,6 @@ private:
 	IVideoDriver* driver;
 	IrrlichtDevice* device;
 
-    IGUIEnvironment* guienv;
-
     ILightSceneNode* light;
 
     Player* player;
@@ -38,6 +37,8 @@ private:
     int score = 0;
 
     std::vector<IAnimatedMeshSceneNode*> pickupNode;
+
+    ClothesMenu* clothesMenu;
 
     IGUIFont* font;
 
@@ -97,6 +98,8 @@ private:
         playerCollision = smgr->createCollisionResponseAnimator(world, playerNode, vector3df(0.5f, 2, 0.5f), vector3df(0, -0.1f, 0));
         playerNode->addAnimator(playerCollision);
         playerCollision->drop();
+
+        this->clothesMenu->setPlayer(playerNode);
     }
 
     void addPickups() {
@@ -154,9 +157,15 @@ private:
 public:
 	ISceneManager* smgr;
 
+    IGUIEnvironment* guienv;
+
 	MyEventReceiver* eventReceiver;
 
 	ICameraSceneNode* camera;
+
+    GameContext() {
+
+    }
 
 	void loadLevel() {
 		driver->setTextureCreationFlag(ETCF_CREATE_MIP_MAPS, true);
@@ -174,7 +183,9 @@ public:
 		this->device = device;
 		then = device->getTimer()->getTime();
 
-		eventReceiver = new MyEventReceiver();
+        this->clothesMenu = new ClothesMenu(device, driver);
+
+		eventReceiver = new MyEventReceiver(this->clothesMenu);
 		device->setEventReceiver(eventReceiver);
         smgr = device->getSceneManager();
 
@@ -198,8 +209,9 @@ public:
 	}
 
     void updateCamera() {
-        camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + 10, playerNode->getPosition().Z + 10));
-        camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - 5, playerNode->getPosition().Z - 5));
+        f32 zoom = 0.5f;
+        camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (10.0f * zoom), playerNode->getPosition().Z + (10.0f * zoom)));
+        camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - (5.0f * zoom), playerNode->getPosition().Z - (5.0f * zoom)));
     }
 
     void updatePlayer() {
@@ -310,7 +322,7 @@ public:
             playerNode->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (player->jumpSpeed * frameDeltaTime), playerNode->getPosition().Z));
         }
 
-        if (eventReceiver->isKeyDown(KEY_KEY_D) || eventReceiver->isKeyDown(KEY_KEY_A)) {
+        if (leftKey || rightKey) {
             if (playerCollision->collisionOccurred())
                 playerCollision->jump(1.f * frameDeltaTime);
         }

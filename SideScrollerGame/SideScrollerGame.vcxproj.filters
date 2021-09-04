@@ -32,5 +32,8 @@
     <ClInclude Include="GameContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ClothesMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

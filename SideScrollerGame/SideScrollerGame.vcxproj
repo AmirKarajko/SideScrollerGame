@@ -226,6 +226,7 @@ copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pic
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClothesMenu.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="MyEventReceiver.h" />
     <ClInclude Include="Pickup.h" />
