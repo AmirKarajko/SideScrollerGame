@@ -33,4 +33,9 @@ Download link: https://www.blender.org/
 
 Download link: https://github.com/michaeleggers/Quake2modding
 
-# Copyright © 2021
+# Credits
+
+Sounds
+*Pickup: https://freesound.org/people/Davidsraba/sounds/347174/
+
+## Copyright © 2021
