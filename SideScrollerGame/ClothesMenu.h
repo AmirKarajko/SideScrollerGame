@@ -32,62 +32,6 @@ private:
 	SColor tShirtColor = SColor(255, 100, 0, 0);
 	SColor pantsColor = SColor(255, 0, 0, 100);
 
-public:
-	ClothesMenu() {
-
-	}
-
-	ClothesMenu(IrrlichtDevice* device, IVideoDriver* driver) {
-		this->driver = driver;
-
-		this->fileSystem = device->getFileSystem();
-
-		IGUIEnvironment* guienv = device->getGUIEnvironment();
-
-		this->window = guienv->addWindow(rect<s32>(100, 100, 300, 200), false, L"Clothes Menu");
-		this->window->setVisible(false);
-
-		guienv->addButton(rect<s32>(10, 30, 110, 55), this->window, 500, L"T Shirt");
-		guienv->addButton(rect<s32>(10, 65, 110, 90), this->window, 501, L"Pants");
-
-		this->window->getCloseButton()->setVisible(false);
-
-
-		this->imageFile = this->fileSystem->createAndOpenFile("player.bmp");
-	}
-
-	bool isOpen() {
-		return this->window->isVisible();
-	}
-
-	void open() {
-		if (this->window) {
-			this->window->setVisible(true);
-		}
-	}
-
-	void close() {
-		if (this->window) {
-			this->window->setVisible(false);
-		}
-	}
-
-	void toggleOpen() {
-		if (!this->window) {
-			return;
-		}
-
-		if (this->window->isVisible()) {
-			close();
-		}
-		else {
-			open();
-		}
-	}
-
-	void setPlayer(IAnimatedMeshSceneNode* playerNode) {
-		this->playerNode = playerNode;
-	}
 
 	IImage* TextureImage(ITexture* texture) {
 		driver->setTextureCreationFlag(ETCF_CREATE_MIP_MAPS, false);
@@ -135,26 +79,16 @@ public:
 		}
 	}
 
-	void setRandomTShirtColor() {
-		initTextureImage();
-
+	SColor getRandomColor() {
 		u32 r = rand() % 256;
 		u32 g = rand() % 256;
 		u32 b = rand() % 256;
-		this->tShirtColor = SColor(255, r, g, b);
-
-		setColorsOnTexture();
+		return SColor(255, r, g, b);
 	}
 
-	void setRandomPantsColor() {
-		initTextureImage();
-
-		u32 r = rand() % 256;
-		u32 g = rand() % 256;
-		u32 b = rand() % 256;
-		this->pantsColor = SColor(255, r, g, b);
-
-		setColorsOnTexture();
+	void setRandomColor(SColor* color) {
+		SColor r = getRandomColor();
+		color->set(r.getAlpha(), r.getRed(), r.getGreen(), r.getBlue());
 	}
 
 	void setColorsOnTexture() {
@@ -175,6 +109,75 @@ public:
 
 		ITexture* newTexture = ImageTexture(tempImage);
 		playerNode->setMaterialTexture(0, newTexture);
+	}
+
+public:
+	ClothesMenu() {
+
+	}
+
+	ClothesMenu(IrrlichtDevice* device, IVideoDriver* driver) {
+		this->driver = driver;
+
+		this->fileSystem = device->getFileSystem();
+
+		IGUIEnvironment* guienv = device->getGUIEnvironment();
+
+		this->window = guienv->addWindow(rect<s32>(100, 100, 220, 200), false, L"Clothes Menu");
+		this->window->setVisible(false);
+
+		guienv->addButton(rect<s32>(10, 30, 110, 55), this->window, 500, L"T-Shirt");
+		guienv->addButton(rect<s32>(10, 65, 110, 90), this->window, 501, L"Pants");
+
+		this->window->getCloseButton()->setVisible(false);
+
+
+		this->imageFile = this->fileSystem->createAndOpenFile("player.bmp");
+	}
+
+	bool isOpen() {
+		return this->window->isVisible();
+	}
+
+	void open() {
+		if (this->window) {
+			this->window->setVisible(true);
+		}
+	}
+
+	void close() {
+		if (this->window) {
+			this->window->setVisible(false);
+		}
+	}
+
+	void toggleOpen() {
+		if (!this->window) {
+			return;
+		}
+
+		if (this->window->isVisible()) {
+			close();
+		}
+		else {
+			open();
+		}
+	}
+
+	void setPlayer(IAnimatedMeshSceneNode* playerNode) {
+		this->playerNode = playerNode;
+	}
+
+	void setRandomTShirtColor() {
+		initTextureImage();
+		setRandomColor(&tShirtColor);
+		setColorsOnTexture();
+	}
+
+	void setRandomPantsColor() {
+		initTextureImage();
+		setRandomColor(&pantsColor);
+		setColorsOnTexture();
 	}
 };
 
