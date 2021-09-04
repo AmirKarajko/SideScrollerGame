@@ -11,6 +11,8 @@
 * 1 - Wave
 * 2 - Do Pushup
 * F5 - Reset Player Position
+* F7 - Zoom In
+* F8 - Zoom Out
 * F10 - Toggle Clothes Menu
 
 # Setup
