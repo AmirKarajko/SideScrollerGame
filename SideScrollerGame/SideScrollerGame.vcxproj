@@ -73,22 +73,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)\irrlicht-1.8.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\amirk\source\repos\SideScrollerGame\irrlicht-1.8.4\lib\Win32-visualstudio;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)irrKlang-1.6.0/lib/x86;C:\Users\amirk\source\repos\SideScrollerGame\irrlicht-1.8.4\lib\Win32-visualstudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)\irrlicht-1.8.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\amirk\source\repos\SideScrollerGame\irrlicht-1.8.4\lib\Win32-visualstudio;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)irrKlang-1.6.0/lib/x86;C:\Users\amirk\source\repos\SideScrollerGame\irrlicht-1.8.4\lib\Win32-visualstudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\irrlicht-1.8.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\irrlicht-1.8.4\lib\Win64-visualStudio;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)irrKlang-1.6.0/include;$(SolutionDir)\irrlicht-1.8.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)irrKlang-1.6.0/lib/x64;$(SolutionDir)\irrlicht-1.8.4\lib\Win64-visualStudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)\irrlicht-1.8.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\irrlicht-1.8.4\lib\Win64-visualStudio;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)irrKlang-1.6.0/include;$(SolutionDir)\irrlicht-1.8.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)irrKlang-1.6.0/lib/x64;$(SolutionDir)\irrlicht-1.8.4\lib\Win64-visualStudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -103,6 +103,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(SolutionDir)irrlicht-1.8.4\bin\x86\Irrlicht.dll" "$(OutDir)\Irrlicht.dll"
+copy /y "$(SolutionDir)irrKlang-1.6.0\bin\x86" "$(OutDir)"
 mkdir "$(OutDir)\assets\player"
 copy /y "$(SolutionDir)Blender\player\player.md2" "$(OutDir)\assets\player\player.md2"
 copy /y "$(SolutionDir)Blender\player\player.bmp" "$(OutDir)\assets\player\player.bmp"
@@ -118,7 +119,9 @@ copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
 copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"
 mkdir "$(OutDir)\assets\pickup\diamond"
 copy /y "$(SolutionDir)Blender\pickup\\diamond\diamond.md2" "$(OutDir)\assets\pickup\diamond\diamond.md2"
-copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"</Command>
+copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"
+mkdir "$(OutDir)\assets\sounds"
+copy /y "$(SolutionDir)Sounds" "$(OutDir)assets\sounds"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -138,6 +141,7 @@ copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pic
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(SolutionDir)irrlicht-1.8.4\bin\x86\Irrlicht.dll" "$(OutDir)\Irrlicht.dll"
+copy /y "$(SolutionDir)irrKlang-1.6.0\bin\x86" "$(OutDir)"
 mkdir "$(OutDir)\assets\player"
 copy /y "$(SolutionDir)Blender\player\player.md2" "$(OutDir)\assets\player\player.md2"
 copy /y "$(SolutionDir)Blender\player\player.bmp" "$(OutDir)\assets\player\player.bmp"
@@ -153,7 +157,9 @@ copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
 copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"
 mkdir "$(OutDir)\assets\pickup\diamond"
 copy /y "$(SolutionDir)Blender\pickup\\diamond\diamond.md2" "$(OutDir)\assets\pickup\diamond\diamond.md2"
-copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"</Command>
+copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"
+mkdir "$(OutDir)\assets\sounds"
+copy /y "$(SolutionDir)Sounds" "$(OutDir)assets\sounds"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -169,6 +175,7 @@ copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pic
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(SolutionDir)irrlicht-1.8.4\bin\x64\Irrlicht.dll" "$(OutDir)\Irrlicht.dll"
+copy /y "$(SolutionDir)irrKlang-1.6.0\bin\x64" "$(OutDir)"
 mkdir "$(OutDir)\assets\player"
 copy /y "$(SolutionDir)Blender\player\player.md2" "$(OutDir)\assets\player\player.md2"
 copy /y "$(SolutionDir)Blender\player\player.bmp" "$(OutDir)\assets\player\player.bmp"
@@ -184,7 +191,9 @@ copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
 copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"
 mkdir "$(OutDir)\assets\pickup\diamond"
 copy /y "$(SolutionDir)Blender\pickup\\diamond\diamond.md2" "$(OutDir)\assets\pickup\diamond\diamond.md2"
-copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"</Command>
+copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"
+mkdir "$(OutDir)\assets\sounds"
+copy /y "$(SolutionDir)Sounds" "$(OutDir)assets\sounds"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -204,6 +213,7 @@ copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pic
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(SolutionDir)irrlicht-1.8.4\bin\x64\Irrlicht.dll" "$(OutDir)\Irrlicht.dll"
+copy /y "$(SolutionDir)irrKlang-1.6.0\bin\x64" "$(OutDir)"
 mkdir "$(OutDir)\assets\player"
 copy /y "$(SolutionDir)Blender\player\player.md2" "$(OutDir)\assets\player\player.md2"
 copy /y "$(SolutionDir)Blender\player\player.bmp" "$(OutDir)\assets\player\player.bmp"
@@ -219,7 +229,9 @@ copy /y "$(SolutionDir)Blender\map\wood.jpg" "$(OutDir)\assets\map\wood.jpg"
 copy /y "$(SolutionDir)Blender\map\wood2.jpg" "$(OutDir)\assets\map\wood2.jpg"
 mkdir "$(OutDir)\assets\pickup\diamond"
 copy /y "$(SolutionDir)Blender\pickup\\diamond\diamond.md2" "$(OutDir)\assets\pickup\diamond\diamond.md2"
-copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"</Command>
+copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pickup\diamond\diamond.bmp"
+mkdir "$(OutDir)\assets\sounds"
+copy /y "$(SolutionDir)Sounds" "$(OutDir)assets\sounds"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -231,6 +243,7 @@ copy /y "$(SolutionDir)Blender\pickup\diamond\diamond.bmp" "$(OutDir)\assets\pic
     <ClInclude Include="MyEventReceiver.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SoundContext.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
