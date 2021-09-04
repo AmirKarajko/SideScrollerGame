@@ -4,13 +4,14 @@
 
 ## How to play
 
-* D - MOVE RIGHT
-* A - MOVE LEFT
-* S - CROUCH
-* SPACE - JUMP
-* 1 - WAVE
-* 2 - PUSH UP
-* F5 - RESET
+* D - Move Right
+* A - Move Left
+* S - Crouch
+* SPACE - Jump
+* 1 - Wave
+* 2 - Do Pushup
+* F5 - Reset Player Position
+* F10 - Toggle Clothes Menu
 
 # Setup
 
