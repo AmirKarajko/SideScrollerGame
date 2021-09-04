@@ -154,6 +154,11 @@ private:
         }
     }
 
+    f32 zoom = 0.5f;
+    const f32 ZOOM_MIN = 0.2f;
+    const f32 ZOOM_MAX = 2.0f;
+    const f32 ZOOM_SPEED = 0.001f;
+
 public:
 	ISceneManager* smgr;
 
@@ -208,8 +213,25 @@ public:
         updatePlayer();
 	}
 
+    void zoomIn() {
+        if (zoom <= ZOOM_MIN) {
+            return;
+        }
+
+        zoom -= ZOOM_SPEED;
+        updateCamera();
+    }
+
+    void zoomOut() {
+        if (zoom >= ZOOM_MAX) {
+            return;
+        }
+
+        zoom += ZOOM_SPEED;
+        updateCamera();
+    }
+
     void updateCamera() {
-        f32 zoom = 0.5f;
         camera->setPosition(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y + (10.0f * zoom), playerNode->getPosition().Z + (10.0f * zoom)));
         camera->setTarget(vector3df(playerNode->getPosition().X, playerNode->getPosition().Y - (5.0f * zoom), playerNode->getPosition().Z - (5.0f * zoom)));
     }
@@ -329,6 +351,14 @@ public:
 
         if (eventReceiver->isKeyDown(KEY_F5)) {
             reset();
+        }
+
+        if (eventReceiver->isKeyDown(KEY_F7)) {
+            zoomIn();
+        }
+
+        if (eventReceiver->isKeyDown(KEY_F8)) {
+            zoomOut();
         }
     }
 
